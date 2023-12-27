@@ -11,10 +11,10 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import f1_score, recall_score, precision_score
 
-
 # Iporting Functions
 from module1 import predict_for_month, best_threshold
 
+#================== Data Cleaning ===========================================
 # Import training data
 df = pd.read_csv('C:/Users/user1/Desktop/Cmoney/上市櫃營收預測/revrawdata.csv')
 
@@ -40,6 +40,7 @@ variable_col =['revd1', 'yoyd1',
 y = df[target_col] #overall y
 X = df[variable_col] # overall X
 
+#================================= Main ===========================================
 
 # TODO: Model Training
 # Split data by TimeSeriesSplit
@@ -68,16 +69,16 @@ overall_predicted_labels = []
 # 迴圈中調用函數
 for date in ym:
     # 提取特定月份的資料
-    monthly_data = X[X['ddate'] == date].copy()
-
+    monthly_data = df[df['ddate'] == date].copy()
+    
      # 使用函數進行預測
-    probability, predicted_labels = predict_for_month(model_fit, monthly_data, variable_col, best_threshold)
+    probability, predicted_labels = predict_for_month(model_fit, monthly_data, variable_col, threshold_for_date)
+
+    # 使用best_threshold函數找到最佳閾值
+    threshold_for_date = best_threshold(monthly_data[target_col], probability)
 
     # 將結果串聯到整體結果列表中
     overall_prob.extend(probability)
     overall_predicted_labels.extend(predicted_labels)
-    
-
-
 
 

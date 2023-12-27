@@ -1,13 +1,24 @@
 # TODO: probability prediction by months
 
-def best_threshold():
+def best_threshold(original_direction, probability):
 
     """
     Goal: find the best threshold for determination
     Output: A float
-    
+    Original_direction: 實際結果
+    Probability: 由 predict_for_month 預測的營收上漲機率
     """
-    raise TypeError("Unfinished function.")
+    
+    # 計算閾值
+    fpr, tpr, thresholds = roc_curve(original_direction, probability)
+
+    # to find the threshold that maximizes Youden's Index
+    youden_index = tpr - fpr
+    optimal_treshold_idx = np.argmax(youden_index)
+
+    return thresholds[optimal_treshold_idx]
+
+
 
 def predict_for_month(model_fit, dataset, variable_col, best_threshold):
 
@@ -29,3 +40,6 @@ def predict_for_month(model_fit, dataset, variable_col, best_threshold):
     predicted_labels = (probability > best_threshold).astype(int)
 
     return probability, predicted_labels
+
+
+print("HIII")
