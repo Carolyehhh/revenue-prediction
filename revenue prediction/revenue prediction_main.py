@@ -12,7 +12,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import f1_score, recall_score, precision_score
 
 # Iporting Functions
-from module1 import predict_for_month, best_threshold
+from module1 import predict_for_month, find_best_threshold, predicted_labels
 
 #================== Data Cleaning ===========================================
 # Import training data
@@ -70,15 +70,21 @@ overall_predicted_labels = []
 for date in ym:
     # 提取特定月份的資料
     monthly_data = df[df['ddate'] == date].copy()
-    
+
      # 使用函數進行預測
-    probability, predicted_labels = predict_for_month(model_fit, monthly_data, variable_col, threshold_for_date)
+    probability = predict_for_month(model_fit, monthly_data, variable_col)
 
     # 使用best_threshold函數找到最佳閾值
-    threshold_for_date = best_threshold(monthly_data[target_col], probability)
+    threshold_for_date = find_best_threshold(monthly_data[target_col], probability)
+
+    # 貼方向標籤
+    #print(threshold_for_date)
+    pred_label = predicted_labels(probability, threshold_for_date)
 
     # 將結果串聯到整體結果列表中
     overall_prob.extend(probability)
-    overall_predicted_labels.extend(predicted_labels)
+    overall_predicted_labels.extend(pred_label)
 
+print(len(overall_prob))
+print(len(overall_predicted_labels))
 
