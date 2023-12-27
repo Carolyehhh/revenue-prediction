@@ -61,10 +61,11 @@ qr_sub = f"""
      order by 年月 desc
      """ 
 Dream_report = pd.read_sql(qr_sub, conn)
-print(Dream_report.columns)
+#print(Dream_report.columns)
 
 
-#================================= Main ===========================================
+
+#================================= Main1-Logit Model ===========================================
 
 # TODO: Model Training
 # Split data by TimeSeriesSplit
@@ -118,4 +119,24 @@ for date in ym:
     overall_accuracy.append(mdl_accuracy)
 
 
-print(np.mean(overall_accuracy))
+#print(np.mean(overall_accuracy)) #0.63
+#print(len(overall_predicted_labels)) #201965
+#print(ym) #202310-202309-202308
+
+#================================= Main2-夢幻報表 ===========================================
+# TODO: compare the 夢幻報表 with Logit Model
+# change column names into English
+Dream_report.rename(columns={'年月': 'ddate', '股票代號':'stockid', '營收月變動':'direction'}, inplace=True)
+
+# Dream Report predicted direction
+dream_direct = Dream_report[['ddate', 'stockid', 'direction']]
+#print(dream_direct)
+
+# Logit Model predicted direction
+ddate_column = df['ddate'].tolist()
+stock_column = df['stockid'].tolist()
+
+logit_direct = pd.DataFrame({'ddate': ddate_column,'stockid':stock_column, 'predict_labels': overall_predicted_labels})
+#print(logit_direct)
+
+# TODO: 

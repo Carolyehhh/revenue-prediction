@@ -14,11 +14,12 @@ def find_best_threshold(original_direction, predicted_probability):
     Probability: 由 predict_for_month 預測的營收上漲機率
     """
     
-    # 計算閾值
+    # 計算閾值以及fpr、tpr
     fpr, tpr, thresholds = roc_curve(original_direction, predicted_probability)
 
     # to find the threshold that maximizes Youden's Index
     youden_index = tpr - fpr
+    # 找最大的 youden_index 做為最佳的閾值index
     optimal_threshold_idx = np.argmax(youden_index)
 
     return thresholds[optimal_threshold_idx]
@@ -49,7 +50,7 @@ def predicted_labels(pred_probability,optimal_treshold):
     pred_probability: probability prediced by 'predict_for_month'
     optimal_treshold: optimal threshold calculated by function 'find_best_threshold'
     """
-    # 二元預測標籤
+    # 二元預測標籤: 將大於閾值的預測機率標註為1(上漲)，其餘則標註為0(下跌)
     predicted_label_results = (pred_probability > optimal_treshold).astype(int)
 
     return predicted_label_results
