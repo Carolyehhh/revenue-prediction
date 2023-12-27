@@ -110,3 +110,4 @@ for date in ym:
     overall_predicted_labels.extend(pred_label)
 
 
+print('蛤')
