@@ -41,5 +41,3 @@ def predict_for_month(model_fit, dataset, variable_col, best_threshold):
 
     return probability, predicted_labels
 
-
-print("HIII")
