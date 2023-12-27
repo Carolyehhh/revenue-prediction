@@ -14,7 +14,7 @@ from sklearn.metrics import f1_score, recall_score, precision_score
 # Iporting Functions
 from module1 import predict_for_month, find_best_threshold, predicted_labels
 
-#================== Data Cleaning ===========================================
+#================== Data Cleaning-Logit Model ===========================================
 # Import training data
 df = pd.read_csv('C:/Users/user1/Desktop/Cmoney/上市櫃營收預測/revrawdata.csv')
 
@@ -39,6 +39,30 @@ variable_col =['revd1', 'yoyd1',
 # Prepare data for training
 y = df[target_col] #overall y
 X = df[variable_col] # overall X
+
+#================== Data Cleaning-夢幻報表 ===========================================
+conn = pymssql.connect('192.168.121.50', 'carol_yeh', 'Cmoneywork1102', 'master')
+
+cursor = conn.cursor()
+
+qr_sub = f""" 
+    SELECT [CTIME]
+      ,[MTIME]
+      ,[年月]
+      ,[股票代號]
+      ,[營收月變動]
+      ,[營收年成長]
+      ,[月營收信心度]
+      ,[預估單月合併營收創新高]
+      ,[預估單月合併營收年成長(%)]
+     
+     from [DataFinance].[dbo].[ForcastMonthRevenue_Result]
+
+     order by 年月 desc
+     """ 
+Dream_report = pd.read_sql(qr_sub, conn)
+print(Dream_report.columns)
+
 
 #================================= Main ===========================================
 
@@ -85,6 +109,4 @@ for date in ym:
     overall_prob.extend(probability)
     overall_predicted_labels.extend(pred_label)
 
-print(len(overall_prob))
-print(len(overall_predicted_labels))
 
