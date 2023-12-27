@@ -9,10 +9,10 @@ from sklearn.metrics import mean_squared_error
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import f1_score, recall_score, precision_score
+from sklearn.metrics import f1_score, recall_score, label_ranking_average_precision_score
 
 # Iporting Functions
-from module1 import predict_for_month, find_best_threshold, predicted_labels
+from module1 import predict_for_month, find_best_threshold, predicted_labels, predicted_accuracy
 
 #================== Data Cleaning-Logit Model ===========================================
 # Import training data
@@ -85,17 +85,19 @@ y_train, y_test = y.iloc[train_idx], y.iloc[test_idx]
 model = LogisticRegression()
 model_fit = model.fit(X_train, y_train)
 
-# TODO: probability prediction by months
+
+# TODO: 計算模型各月的預測準確度
 # 初始化結果列表
 overall_prob = []
 overall_predicted_labels = []
+overall_accuracy = []
 
 # 迴圈中調用函數
 for date in ym:
     # 提取特定月份的資料
     monthly_data = df[df['ddate'] == date].copy()
 
-     # 使用函數進行預測
+    # 使用函數進行預測
     probability = predict_for_month(model_fit, monthly_data, variable_col)
 
     # 使用best_threshold函數找到最佳閾值
@@ -109,5 +111,11 @@ for date in ym:
     overall_prob.extend(probability)
     overall_predicted_labels.extend(pred_label)
 
+    # calculate model acuracy
+    mdl_accuracy = predicted_accuracy(monthly_data[target_col], pred_label)
 
-print('蛤')
+    # 將結果串聯到整體結果列表中
+    overall_accuracy.append(mdl_accuracy)
+
+
+print(np.mean(overall_accuracy))

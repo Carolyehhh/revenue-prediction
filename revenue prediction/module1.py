@@ -1,5 +1,7 @@
 from sklearn.metrics import roc_curve, auc
 import numpy as np
+from sklearn.metrics import accuracy_score
+
 # TODO: probability prediction by months
 
 
@@ -42,7 +44,24 @@ def predict_for_month(model_fit, dataset, variable_col):
 
 
 def predicted_labels(pred_probability,optimal_treshold):
+    """
+    Output: 以閾值為界判斷預測值應為0或1
+    pred_probability: probability prediced by 'predict_for_month'
+    optimal_treshold: optimal threshold calculated by function 'find_best_threshold'
+    """
     # 二元預測標籤
-    predicted_labels = (pred_probability > optimal_treshold).astype(int)
+    predicted_label_results = (pred_probability > optimal_treshold).astype(int)
 
-    return predicted_labels
+    return predicted_label_results
+
+def predicted_accuracy(original_direction, predicted_label_results): 
+    """
+    Output: model_accuracy
+    Original_direction: directions(Y) from the rqw data 
+    Predicted_label_results: predicted label from 'predicted_labels'
+    """
+    model_accuracy = round(accuracy_score(original_direction, predicted_label_results), 2)
+
+    return model_accuracy
+
+#class 
