@@ -76,6 +76,7 @@ for date in ym:
     # 將結果串聯到整體結果列表中
     overall_prob.extend(probability)
     overall_predicted_labels.extend(predicted_labels)
+    
 
 
 
