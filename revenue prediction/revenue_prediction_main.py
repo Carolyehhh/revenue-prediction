@@ -1,3 +1,5 @@
+# Logit Model
+
 import numpy as np
 import pandas as pd
 import statsmodels.formula.api as smf
@@ -11,37 +13,13 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import f1_score, recall_score, label_ranking_average_precision_score
 
+# Importing Data
+from data import df, X, y, target_col, variable_col, ym
+
 # Iporting Functions
 from module1 import predict_for_month, find_best_threshold, predicted_labels, predicted_accuracy
 
-#================== Data Cleaning-Logit Model ===========================================
-# Import training data
-df = pd.read_csv('C:/Users/user1/Desktop/Cmoney/上市櫃營收預測/revrawdata.csv')
 
-# Drop NaNs from data
-df = df.dropna()
-#print(type(df))
-nan_check = df.isna().sum()
-#print(nan_check)
-
-unique_stockid = df['stockid'].unique()
-ym = df['ddate'].unique()
-#print(len(unique_stockid)) #1830
-
-target_col = ['direction']
-variable_col =['revd1', 'yoyd1',
-                         'mond1', 'revd2', 'yoyd2', 'mond2', 'revd3', 'yoyd3', 'mond3', 'revd4',
-                         'yoyd4', 'mond4', 'revd5', 'yoyd5', 'mond5', 'revd6', 'yoyd6', 'mond6',
-                         'revd7', 'yoyd7', 'mond7', 'revd8', 'yoyd8', 'mond8', 'revd9', 'yoyd9',
-                         'mond9', 'revd10', 'yoyd10', 'mond10', 'revd11', 'yoyd11', 'mond11',
-                         'revd12', 'yoyd12', 'mond12']
-
-# Prepare data for training
-y = df[target_col] #overall y
-X = df[variable_col] # overall X
-
-
-#================================= Main Logit Model ===========================================
 
 # TODO: Model Training
 # Split data by TimeSeriesSplit
@@ -98,4 +76,5 @@ for date in ym:
 #print(np.mean(overall_accuracy)) #0.63
 #print(len(overall_predicted_labels)) #201965
 #print(ym) #202310-202309-202308
+
 
