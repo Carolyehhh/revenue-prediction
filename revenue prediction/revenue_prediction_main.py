@@ -40,32 +40,8 @@ variable_col =['revd1', 'yoyd1',
 y = df[target_col] #overall y
 X = df[variable_col] # overall X
 
-#================== Data Cleaning-夢幻報表 ===========================================
-conn = pymssql.connect('192.168.121.50', 'carol_yeh', 'Cmoneywork1102', 'master')
 
-cursor = conn.cursor()
-
-qr_sub = f""" 
-    SELECT [CTIME]
-      ,[MTIME]
-      ,[年月]
-      ,[股票代號]
-      ,[營收月變動]
-      ,[營收年成長]
-      ,[月營收信心度]
-      ,[預估單月合併營收創新高]
-      ,[預估單月合併營收年成長(%)]
-     
-     from [DataFinance].[dbo].[ForcastMonthRevenue_Result]
-
-     order by 年月 desc
-     """ 
-Dream_report = pd.read_sql(qr_sub, conn)
-#print(Dream_report.columns)
-
-
-
-#================================= Main1-Logit Model ===========================================
+#================================= Main Logit Model ===========================================
 
 # TODO: Model Training
 # Split data by TimeSeriesSplit
@@ -122,20 +98,4 @@ for date in ym:
 #print(np.mean(overall_accuracy)) #0.63
 #print(len(overall_predicted_labels)) #201965
 #print(ym) #202310-202309-202308
-
-#================================= Main2-夢幻報表 ===========================================
-# TODO: compare the 夢幻報表 with Logit Model
-# change column names into English
-Dream_report.rename(columns={'年月': 'ddate', '股票代號':'stockid', '營收月變動':'direction'}, inplace=True)
-
-# Dream Report predicted direction
-dream_direct = Dream_report[['ddate', 'stockid', 'direction']]
-#print(dream_direct)
-
-# Logit Model predicted direction
-ddate_column = df['ddate'].tolist()
-stock_column = df['stockid'].tolist()
-
-logit_direct = pd.DataFrame({'ddate': ddate_column,'stockid':stock_column, 'predict_labels': overall_predicted_labels})
-#print(logit_direct)
 

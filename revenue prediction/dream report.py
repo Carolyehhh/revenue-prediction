@@ -63,4 +63,14 @@ ddate_column = logit_df['ddate'].tolist()
 stock_column = logit_df['stockid'].tolist()
 
 logit_direction = pd.DataFrame({'ddate': ddate_column,'stockid':stock_column, 'predict_labels': overall_predicted_labels})
-print(logit_direction)
+#print(logit_direction)
+
+# TODO: Compare the difference between Dream report & logit_direction
+# Goal: 計算夢幻報表及 Logit Model 預測同向之數目(個股維度，分月份)
+
+# Goal: 計算各月份夢幻報表及 Logit model 預測 0&1 的個數
+
+# Goal: 預測數量相反者
+
+# Goal: calculate the accuracy of Dream model
+
