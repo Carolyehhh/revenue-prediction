@@ -139,4 +139,3 @@ stock_column = df['stockid'].tolist()
 logit_direct = pd.DataFrame({'ddate': ddate_column,'stockid':stock_column, 'predict_labels': overall_predicted_labels})
 #print(logit_direct)
 
-# TODO: 
