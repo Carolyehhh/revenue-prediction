@@ -20,7 +20,6 @@ from data import df, X, y, target_col, variable_col, ym
 from module1 import predict_for_month, find_best_threshold, predicted_labels, predicted_accuracy
 
 
-
 # TODO: Model Training
 # Split data by TimeSeriesSplit
 tscv = TimeSeriesSplit(n_splits=50)
@@ -76,5 +75,15 @@ for date in ym:
 #print(np.mean(overall_accuracy)) #0.63
 #print(len(overall_predicted_labels)) #201965
 #print(ym) #202310-202309-202308
+
+
+# To run the main function when the main.py file is executed
+# main.py   
+# def main():
+    # stepssss
+
+# if __name__ == '__main__':
+    # Call the main function when the script is executed
+    #main()
 
 
