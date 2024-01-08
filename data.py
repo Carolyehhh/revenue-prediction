@@ -36,17 +36,12 @@ conn = pymssql.connect('192.168.121.50', 'carol_yeh', 'Cmoneywork1102', 'master'
 cursor = conn.cursor()
 
 qr_sub = f""" 
-    SELECT [CTIME]
-      ,[MTIME]
-      ,[年月]
+    SELECT 
+      [年月]
       ,[股票代號]
-      ,[營收月變動]
-      ,[營收年成長]
-      ,[月營收信心度]
-      ,[預估單月合併營收創新高]
-      ,[預估單月合併營收年成長(%)]
+      ,[月變動方向]
      
-     from [DataFinance].[dbo].[ForcastMonthRevenue_Result]
+     from [DataFinance].[dbo].[ForcastMonthRevenue]
 
      order by 年月 desc
      """ 
@@ -54,5 +49,6 @@ Dream_report = pd.read_sql(qr_sub, conn)
 
 
 # change column names into English
-Dream_report.rename(columns={'年月': 'ddate', '股票代號':'stockid', '營收月變動':'direction'}, inplace=True)
+Dream_report.rename(columns={'年月': 'ddate', '股票代號':'stockid', '月變動方向':'direction'}, inplace=True)
 #print(Dream_report.head())
+
