@@ -25,7 +25,7 @@ variable_col =['revd1', 'yoyd1',
                          'revd12', 'yoyd12', 'mond12']
 
 # Prepare data for training
-y = df[target_col] #overall y
+y = df[target_col] # overall y
 X = df[variable_col] # overall X
 
 
@@ -39,16 +39,16 @@ qr_sub = f"""
     SELECT 
       [年月]
       ,[股票代號]
-      ,[月變動方向]
-     
-     from [DataFinance].[dbo].[ForcastMonthRevenue]
+      ,[月變動方向]  
+    from [DataFinance].[dbo].[ForcastMonthRevenue]
+   order by 年月 desc
+  """
 
-     order by 年月 desc
-     """ 
+#print(qr_sub)
 Dream_report = pd.read_sql(qr_sub, conn)
 
 
 # change column names into English
 Dream_report.rename(columns={'年月': 'ddate', '股票代號':'stockid', '月變動方向':'direction'}, inplace=True)
-#print(Dream_report.head())
+print(Dream_report.head())
 

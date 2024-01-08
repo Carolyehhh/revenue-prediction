@@ -18,7 +18,7 @@ from sklearn.metrics import f1_score, recall_score, label_ranking_average_precis
 from data import Dream_report, df
 
 # Import data logic model revenue prediction
-from revenue_prediction_main import overall_predicted_labels
+from main import overall_predicted_labels
 
 
 # Dream Report predicted direction
