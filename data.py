@@ -50,5 +50,24 @@ Dream_report = pd.read_sql(qr_sub, conn)
 
 # change column names into English
 Dream_report.rename(columns={'年月': 'ddate', '股票代號':'stockid', '月變動方向':'direction'}, inplace=True)
-print(Dream_report.head())
+#print(Dream_report.head())
 
+
+#================== Stock Catagory Data Cleaning ===========================================
+#conn = pymssql.connect('192.168.121.50', 'carol_yeh', 'Cmoneywork1102', 'master')
+
+#cursor = conn.cursor()
+
+stock_qr_sub = f""" 
+    SELECT 
+      [股票代號]
+      ,中文簡稱
+      ,上市上櫃
+      ,指數彙編分類代號
+      , 指數彙編分類
+    from [CMServer].[Northwind].[dbo].syszine
+  """
+
+#print(qr_sub)
+stock_info = pd.read_sql(stock_qr_sub, conn)
+#print(stock_info)
