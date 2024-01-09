@@ -56,7 +56,7 @@ Dream_report.rename(columns={'年月': 'ddate', '股票代號':'stockid', '月�
 #================== Stock Catagory Data Cleaning ===========================================
 #conn = pymssql.connect('192.168.121.50', 'carol_yeh', 'Cmoneywork1102', 'master')
 
-#cursor = conn.cursor()
+cursor = conn.cursor()
 
 stock_qr_sub = f""" 
     SELECT 
