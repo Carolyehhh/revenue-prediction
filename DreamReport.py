@@ -37,8 +37,15 @@ logit_direction = pd.DataFrame({'ddate': ddate_column,'stockid':stock_column, 'p
 # TODO: Compare the difference between Dream report & logit_direction
 # Goal: 計算夢幻報表及 Logit Model 預測同向之數目(個股維度，分月份)
 
+
 # Goal: 計算各月份夢幻報表及 Logit model 預測 0&1 的個數
 
 # Goal: 預測數量相反者
 
 # Goal: calculate the accuracy of Dream model
+
+# print(len(dream_direct)) #183246
+# print(len(logit_direction)) #201965
+
+# To comfirm the dataframs are sorted in order
+
