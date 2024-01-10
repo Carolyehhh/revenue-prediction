@@ -46,7 +46,7 @@ overall_prob = []
 overall_predicted_labels = []
 overall_accuracy = []
 
-# 迴圈中調用函數
+
 for date in ym:
     # 提取特定月份的資料
     monthly_data = df[df['ddate'] == date].copy()
