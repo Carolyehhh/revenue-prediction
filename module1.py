@@ -77,7 +77,7 @@ def compare_predictions(group):
           both Dream Report & Logit Model, also the real direction 
     """
     group['DreamPredCorrect'] = (group['direction'] == group['direction_real']).astype(int)
-    group['LogitPredCorrect'] = (group['predicted_labels'] == 
+    group['LogitPredCorrect'] = (group['predict_labels'] == 
                                  group['direction_real']).astype(int)
 
     return group
