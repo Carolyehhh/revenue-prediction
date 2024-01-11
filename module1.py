@@ -69,7 +69,7 @@ def predicted_accuracy(original_direction, predicted_label_results):
 
 # class
 
-# 比對預測結果相同
+# 兩模型的預測結果正確
 def compare_predictions(group):
     """
     Outcome: Determine whether the prediction of the model is correct
