@@ -68,3 +68,17 @@ def predicted_accuracy(original_direction, predicted_label_results):
     return model_accuracy
 
 # class
+
+# 比對預測結果相同
+def compare_predictions(group):
+    """
+    Outcome: Determine whether the prediction of the model is correct
+    group:A dataframe groupby specific variables contains the predictions of 
+          both Dream Report & Logit Model, also the real direction 
+    """
+    group['DreamPredCorrect'] = (group['direction'] == group['direction_real']).astype(int)
+    group['LogitPredCorrect'] = (group['predicted_labels'] == 
+                                 group['direction_real']).astype(int)
+
+    return group
+
