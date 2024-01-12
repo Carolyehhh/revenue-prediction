@@ -89,10 +89,11 @@ macro_qr_sub = f"""
       ,數值
       ,名稱
     from [CMServer].[Northwind].[dbo].sysallun
+    where 年月 >=201401
   """
 
 MacroInfo = pd.read_sql(macro_qr_sub, conn)
-#print(MacroInfo)
+print(MacroInfo)
 
 
 #============================三大法人=====================================================
