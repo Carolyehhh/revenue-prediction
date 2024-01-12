@@ -77,3 +77,31 @@ stock_info = pd.read_sql(stock_qr_sub, conn)
 # Import training data
 OverallGeneralEcon = pd.read_csv('C:/Users/user1/Desktop/Cmoney/上市櫃營收預測/10301_11203_GDP.csv')
 #print(type(OverallGeneralEcon))
+
+
+#============================總經數據=====================================================
+cursor = conn.cursor()
+
+macro_qr_sub = f""" 
+    SELECT 
+      年月
+      ,代號
+      ,數值
+      ,名稱
+    from [CMServer].[Northwind].[dbo].sysallun
+  """
+
+MacroInfo = pd.read_sql(macro_qr_sub, conn)
+#print(MacroInfo)
+
+
+#============================三大法人=====================================================
+cursor = conn.cursor()
+
+juridical_qr_sub = f""" 
+    SELECT *
+    from [CMServer].[Northwind].[dbo].syserica
+  """
+
+JuridicalInfo = pd.read_sql(juridical_qr_sub, conn)
+#print(JuridicalInfo)
