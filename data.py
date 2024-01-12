@@ -76,4 +76,4 @@ stock_info = pd.read_sql(stock_qr_sub, conn)
 #================== Overall GDP Data Cleaning ===========================================
 # Import training data
 OverallGeneralEcon = pd.read_csv('C:/Users/user1/Desktop/Cmoney/上市櫃營收預測/10301_11203_GDP.csv')
-print(type(OverallGeneralEcon))
+#print(type(OverallGeneralEcon))
