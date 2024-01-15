@@ -55,7 +55,8 @@ for date in ym:
     probability = predict_for_month(model_fit, monthly_data, variable_col)
 
     # 使用best_threshold函數找到最佳閾值
-    threshold_for_date = find_best_threshold(monthly_data[target_col], probability)
+    threshold_for_date = find_best_threshold(monthly_data[target_col],
+                                             probability)
 
     # 貼方向標籤
     #print(threshold_for_date)
