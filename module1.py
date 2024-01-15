@@ -59,7 +59,7 @@ def predicted_labels(pred_probability, optimal_treshold):
 def predicted_accuracy(original_direction, predicted_label_results):
     """
     Output: model_accuracy
-    Original_direction: directions(Y) from the rqw data
+    Original_direction: directions(Y) from the raw data
     Predicted_label_results: predicted label from 'predicted_labels'
     """
     model_accuracy = round(accuracy_score(
