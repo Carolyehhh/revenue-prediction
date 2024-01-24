@@ -40,6 +40,7 @@ qr_sub = f"""
       [年月]
       ,[股票代號]
       ,[月變動方向]  
+      ,[月變動一致]
     from [DataFinance].[dbo].[ForcastMonthRevenue]
    order by 年月 desc
   """
@@ -47,10 +48,24 @@ qr_sub = f"""
 #print(qr_sub)
 Dream_report = pd.read_sql(qr_sub, conn)
 
+# Convert 月變動一致 into ActualDirect
+def calculate_ActualDirect(row):
+  if row['月變動一致'] == 1:
+    return row['月變動方向']
+  elif row['月變動一致'] == 0 and row['月變動方向'] == 1:
+    return 0
+  elif row['月變動一致'] == 0 and row['月變動方向'] == 0:
+    return 1
+
+Dream_report['ActualDirect'] = Dream_report.apply(calculate_ActualDirect, axis=1) #axis=1 means the function is applied to each row
 
 # change column names into English
 Dream_report.rename(columns={'年月': 'ddate', '股票代號':'stockid', '月變動方向':'direction'}, inplace=True)
-#print(Dream_report.head())
+# Select only the columns I want
+selected_columns = ['ddate', 'stockid', 'direction', 'ActualDirect']
+Dream_report = Dream_report[selected_columns]
+print(Dream_report.tail(10))
+#print(type(Dream_report['direction'][0])) # float
 
 
 #================== Stock Catagory Data Cleaning ===========================================
@@ -93,7 +108,7 @@ macro_qr_sub = f"""
   """
 
 MacroInfo = pd.read_sql(macro_qr_sub, conn)
-print(MacroInfo)
+#print(MacroInfo)
 
 
 #============================三大法人=====================================================
