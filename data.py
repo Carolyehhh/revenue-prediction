@@ -64,7 +64,7 @@ Dream_report.rename(columns={'年月': 'ddate', '股票代號':'stockid', '月�
 # Select only the columns I want
 selected_columns = ['ddate', 'stockid', 'direction', 'ActualDirect']
 Dream_report = Dream_report[selected_columns]
-print(Dream_report.tail(10))
+#print(Dream_report.tail(10))
 #print(type(Dream_report['direction'][0])) # float
 
 
@@ -114,10 +114,27 @@ MacroInfo = pd.read_sql(macro_qr_sub, conn)
 #============================三大法人=====================================================
 cursor = conn.cursor()
 
-juridical_qr_sub = f""" 
+juridical_qr_sub2 = f""" 
     SELECT *
     from [CMServer].[Northwind].[dbo].syserica
   """
 
-JuridicalInfo = pd.read_sql(juridical_qr_sub, conn)
+JuridicalInfo2 = pd.read_sql(juridical_qr_sub2, conn)
 #print(JuridicalInfo)
+
+#============================上市櫃三大法人買賣超金額=====================================================
+cursor = conn.cursor()
+
+juridical_qr_sub = f""" 
+    SELECT 
+      日期
+      ,股票代號
+      ,[三大法人月初以來買賣超金額(千)]
+      ,[三大法人持股比率增減]
+      ,[三大法人近1日買賣超金額(千)]
+    from [CMServer].[Northwind].[dbo].sysSpeedMalst
+  """
+
+JuridicalInfo = pd.read_sql(juridical_qr_sub, conn)
+
+#print(JuridicalInfo.head())
