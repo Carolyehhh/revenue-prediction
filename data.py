@@ -64,6 +64,8 @@ Dream_report.rename(columns={'年月': 'ddate', '股票代號':'stockid', '月�
 # Select only the columns I want
 selected_columns = ['ddate', 'stockid', 'direction', 'ActualDirect']
 Dream_report = Dream_report[selected_columns]
+# print(Dream_report.isna().sum()) #No NaNs in Dream_report
+#print(len(Dream_report)) #187652
 #print(Dream_report.tail(10))
 #print(type(Dream_report['direction'][0])) # float
 
